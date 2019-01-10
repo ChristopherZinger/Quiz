@@ -1,0 +1,238 @@
+{% extends 'base.html' %}
+
+{% block title %}Questions{% endblock %}
+
+{% block head %}
+
+<style media="screen">
+  .inline{
+    display:inline-block;
+  }
+  .selected{
+    background-color:black;
+    color:white;
+  }
+</style>
+
+{% endblock %}
+
+
+
+{% block body %}
+
+<h2 class="inline">Current score : &nbsp;</h2>
+<h2 id='score' class="inline">0</h2>
+<h2 class="inline">&nbsp; out of &nbsp;</h2>
+<h2 id='question_nr' class="inline"></h2>
+
+<h3> timer: </h3> <h3 id='clock'></h3>
+
+
+
+<p id="q-title"></p>
+<div id="img">
+
+</div>
+<h4 id='q-question'></h4>
+<ul>
+  <li id='A' class="answer" selected="false"></li>
+  <li id='B' class="answer" selected="false"></li>
+  <li id='C' class="answer" selected="false"></li>
+  <li id='D' class="answer" selected="false"></li>
+</ul>
+
+<button id='nextButton' type="button" name="button">Next question</button>
+
+
+
+<script type="text/javascript">
+
+  // find player shortcode in URL
+  var url = window.location.href
+  var player_code
+  var question_id
+  var current_question_obj
+  var remain_questions_nr
+  var clock
+  var time = 30// seconds for each question
+
+
+  function populateHTML(
+    title='',     question='',
+    answer1='',   answer2='',
+    answer3='',   answer4=''){
+      $('#q-title').html(title);
+      $('#q-question').html(question);
+
+      $('#A').html(answer1);
+      $('#B').html(answer2);
+      $('#C').html(answer3);
+      $('#D').html(answer4);
+  }
+
+
+  // remove selection
+  function remove_selection(){
+    $(".answer").each(function(i, el){
+      $(el).removeClass('selected')
+    })
+  }
+
+
+  // go to results page
+  function results(){
+      url = "http://127.0.0.1:8000/quizgame/results/" + player_code
+      $(location).attr('href', url);
+  }
+
+
+  function start_clock(){
+    time = 30
+    $('#clock').html(`${time}`)
+    clock = setInterval(function(){
+      if (time > 0){
+        time -= 1
+        $('#clock').html(`${time}`)
+      }else{
+        clearInterval(clock)
+        // check if this was last question and results should be generated
+        if($("#resultsButton").length){
+            submit_answer();
+            results();
+        }else{
+          submit_answer()
+          // get_question();
+        }
+      }
+    }, 1000);
+  }
+
+
+  function submit_answer(){
+    // stop the clock
+    clearInterval(clock)
+
+    // post answer - url
+    question_post_url = 'http://127.0.0.1:8000/quizgame/api/' + player_code + '/questions/'
+
+    // post answer - prepare data
+    // check the answer and handle if nothing is selected
+    answer = $('.selected').html()
+    if(answer == null){answer = 'z'}
+    //answer ides
+    answer_id = $('.selected').attr('id')
+    if ( answer_id == null ){ answer_id = ''}
+    // post data
+    var post_data = {"answer_id": answer_id, "shortcode": player_code, "question_id":question_id, 'time':time }
+
+    // post answer - ajax post
+    $.ajax({
+      type:'POST',
+      url: question_post_url,
+      dataType: 'json',
+      data: post_data,
+      success: (data) => {
+        remain_questions_nr = data['remain_questions_nr']
+        if (remain_questions_nr <= 1) {
+
+          if ($('#nextButton').length){
+            $("#nextButton").attr("id","resultsButton");
+            $('#resultsButton').html('Results!')
+            // handle next button
+            $("#resultsButton").click(function(){
+              submit_answer()
+              results()
+            }); // button click
+          }
+        }
+      }
+    }).done(()=>{
+      // remove selection
+      remove_selection();
+    }).done(()=>{
+      get_question()
+    })
+  }
+
+  function get_question(){
+    // get nex quesion id - url
+    var player_URL = 'http://127.0.0.1:8000/quizgame/api/' + player_code + '/questions/'
+
+    // get nex quesion id  - ajax get
+      $.ajax({
+        type:'GET',
+        url: player_URL,
+        success: (data) => {
+          //question_id = data.current_question_obj
+          if( data.status ){
+            console.log('closed quiz');
+            results();
+          }else{
+            current_question_obj = data
+            question_id = data.id
+          }
+
+
+        }
+      }).done(()=>{
+          // check if question have a img and display it
+          if(typeof(current_question_obj.img_url)!="undefined"){
+            $("#img").html(`<img src="${current_question_obj.img_url}" alt="">`)
+          }else{
+            // hide img divs
+            $("#img").hide()
+          }
+          // populate html with question content
+          populateHTML(
+            title=current_question_obj.title,
+            question=current_question_obj.question,
+            answer1=current_question_obj.answer_A,
+            answer2=current_question_obj.answer_B,
+            answer3=current_question_obj.answer_C,
+            answer4=current_question_obj.answer_D)
+        }).done(()=>{
+          start_clock()
+        })
+    }
+
+
+// DOCUMENT READY
+$(document).ready(function() {
+
+  // get player shortcode form url
+  var y = url.split('/').reverse()
+  $(y).each(function(ix, val){
+    if (val.includes("code=")){
+      player_code = val
+      return false; // break from loop
+    }
+  });
+
+  get_question()
+
+  // handle user selecting the answer
+  $(".answer").click(function(){
+  remove_selection()
+  $(this).toggleClass('selected')
+  });
+
+  // handle next button
+  $("#nextButton").click(function(){
+    // submit answer
+    submit_answer()
+    // get new question
+    // get_question()
+  }); // button click
+
+
+
+});
+
+
+
+</script>
+
+
+
+
+{% endblock %}

@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+
+{% block title %} Create Question{% endblock %}
+
+{% block head %}
+
+{% endblock %}
+
+
+{% block body %}
+
+<h2>Update question</h2>
+<form method="Post" enctype='multipart/form-data'>
+  {% csrf_token %}
+  {{ form.as_p }}
+  <input class="btn btn-default" type="submit" value="Submit">
+</form>
+
+<script type="text/javascript">
+
+
+
+</script>
+
+{% endblock %}

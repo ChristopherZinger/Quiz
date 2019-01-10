@@ -1,0 +1,165 @@
+{% extends 'base.html' %}
+
+{% block title %}Questions{% endblock %}
+
+{% block head %}
+
+<style media="screen">
+  .inline{
+    display:inline-block;
+  }
+  .selected{
+    background-color:black;
+    color:white;
+  }
+</style>
+
+{% endblock %}
+
+{% block body %}
+
+<h2 class="inline">Current score : &nbsp;</h2>
+<h2 id='score' class="inline">0</h2>
+<h2 class="inline">&nbsp; out of &nbsp;</h2>
+<h2 id='question_nr' class="inline"></h2>
+
+<i class="fa fa-circle-o-notch fa-spin fa-3x fa-fw margin-bottom"></i>
+<span class="sr-only">Loading...</span>
+
+<p id="q-title">s</p>
+<h4 id='q-question'>s</h4>
+<ul>
+  <li id='q-A' class="answer" selected="false"></li>
+  <li id='q-B' class="answer" selected="false"></li>
+  <li id='q-C' class="answer" selected="false"></li>
+  <li id='q-D' class="answer" selected="false"></li>
+</ul>
+
+<button id='myButton' type="button" name="button">Next question</button>
+
+
+<script>
+
+
+
+//   var curr_score = 0;
+//   var question_ids = new Array();
+//   var correct_anwser = null;
+//   var loop = 0
+//   question_nr = 0
+//
+//   function getRandomInt(max) {
+//     return Math.floor(Math.random() * Math.floor(max));
+//   }
+//
+//   function remove_selection(){
+//     $(".answer").each(function(i, el){
+//       $(el).removeClass('selected')
+//     })
+//   }
+//
+//   function get_result(){
+//     alert('your score:' + curr_score)
+//   }
+//
+//   function get_question(){
+//     // Count QuestionListSerializer
+//     question_nr++
+//     $('#question_nr').html(question_nr)
+//     // ANSWER EVALUATION AND SCORE CALCULATION
+//     if($('.selected').html() === correct_anwser){
+//       curr_score++;
+//       $('#score').html(curr_score);
+//       //console.log('correct : ' + curr_score);
+//     }else{
+//       //console.log('wrong : ' + curr_score);
+//     }
+//
+//     // REMOVE PREVIOUS SELECTION
+//     remove_selection()
+//
+//     // GENERATE RANDOM NR TO FIND QUESTION
+//     var current_id = getRandomInt(question_ids.length)
+//     //console.log(current_id);
+//
+//     // create url to question
+//     var question_url = `http://127.0.0.1:8000/quizgame/api/${question_ids[current_id]}`
+//
+//     // remove id form list to avid repeating the same question
+//     question_ids.splice(current_id, 1)
+//
+//     // get question detail view from server
+//     $.get( question_url, function( item ) {
+//       // count loops
+//       loop++
+//
+//       // set up correct anwser
+//       correct_anwser = item.answer_A
+//
+//       // populate question and answers html
+//       $('#q-title').html(item.title);
+//       $('#q-question').html(item.question);
+//
+//       // randomize populationg answers
+//       a_list = [item.answer_A, item.answer_B, item.answer_C, item.answer_D]
+//       new_list = new Array()
+//       $(a_list).each(function(index, el) {
+//         new_index = getRandomInt(4)
+//         new_list.splice(new_index, 0 , el)
+//       });
+//
+//       // populate answers
+//       $('#q-A').html(new_list[0]);
+//       $('#q-B').html(new_list[1]);
+//       $('#q-C').html(new_list[2]);
+//       $('#q-D').html(new_list[3]);
+//
+//       // IF FAIL TO LOAD NEXT QUESTION
+//     }).fail(function() {
+//       $('#q-title').html('Problem occured while loading data from the server. Sorry :( ').css('color','red');
+//       $('#q-question').hide()
+//       $('#q-A').hide()
+//       $('#q-B').hide()
+//       $('#q-C').hide()
+//       $('#q-D').hide()
+//     }); // get
+//   }
+//
+//   // DOCUMENT READY
+//   $('documents').ready(function(){
+//
+//
+//     // get questions ids and number of all questions
+//     $.ajax({
+//       type:'GET',
+//       url: `http://127.0.0.1:8000/quizgame/api/list`,
+//       success: (list) => {
+//         $.each(list, function(index, el) {
+//             question_ids.push(el.id)
+//         });
+//       }
+//     }).done(get_question) // ajax get list
+//
+//
+//
+//     // NEXT BUTTON
+//     $("#myButton").click(function(){
+//       if(loop < 10){
+//         get_question();
+//       }else{
+//         get_result();
+//       }
+//     }); // button click
+//
+//     // ANWSER SELECTION
+//     $(".answer").click(function(){
+//       remove_selection()
+//       $(this).toggleClass('selected')
+//     });
+//
+// }) // document ready
+</script>
+
+
+
+{% endblock %}

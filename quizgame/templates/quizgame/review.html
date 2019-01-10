@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+
+
+{% block title %} Check answers {% endblock %}
+
+{% block head %}
+<style media="screen">
+ #correct{
+   color:blue;
+ }
+</style>
+
+{% endblock %}
+
+
+
+{% block body %}
+
+<h3>Check your answers</h3>
+
+{% for question in questions %}
+ <p>{{ question.question }}</p>
+<ul>
+  <li {% if question.correct_answer == 'A' %}id="correct"{% endif %} >{{ question.answer_A }}</li>
+  <li {% if question.correct_answer == 'B' %}id="correct"{% endif %}>{{ question.answer_B }}</li>
+  <li {% if question.correct_answer == 'C' %}id="correct"{% endif %}>{{ question.answer_C }}</li>
+  <li {% if question.correct_answer == 'D' %}id="correct"{% endif %}>{{ question.answer_D }}</li>
+</ul>
+
+{% endfor %}
+
+{% endblock %}

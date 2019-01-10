@@ -1,0 +1,55 @@
+{% extends 'base.html' %}
+
+{% block title %} Create Question{% endblock %}
+
+{% block head %}
+
+{% endblock %}
+
+
+{% block body %}
+
+<h2> Create new question</h2>
+<p>Remember that the first anwser is a correct one!</p>
+
+
+
+
+
+<form method="Post" enctype='multipart/form-data'>
+  {% csrf_token %}
+  {{ form.as_p }}
+  <input class="btn btn-default" type="submit" value="Submit">
+</form>
+
+<script type="text/javascript">
+  var answer
+
+  $(document).ready(function() {
+
+    $.ajax({
+      type:'GET',
+      url: `http://127.0.0.1:8000/quizgame/api/generate_correct_answer/`,
+      success: (data) => {
+        answer = data
+        // $.each(list, function(index, el) {
+        //
+        // });
+      }
+    }).done(function(){
+
+      mystr1 = "input[name='answer_" + answer.correct_answer +  "']"
+      mystr2 = "option[value='" + answer.correct_answer +  "']"
+      mystr3 = "select[name='correct_answer']"
+      $( mystr1).css('background-color','red');
+      $( mystr3).children().removeAttr('selected')
+      $( mystr3).children().trigger('chosen:updated');
+      $( mystr2).attr('selected', 'selected')
+      $( mystr2).trigger('chosen:updated');
+      })
+
+  });
+
+</script>
+
+{% endblock %}

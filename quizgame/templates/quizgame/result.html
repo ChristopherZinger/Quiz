@@ -1,0 +1,112 @@
+
+
+{% extends 'base.html' %}
+
+{% block title %}Home{% endblock %}
+
+{% block head %}
+<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+ <script type="text/javascript">
+
+
+
+   $(document).ready(function() {
+     // global
+     var player_data
+     var list=[]
+     var player_URL = 'http://127.0.0.1:8000/quizgame/api/get_players_chart/'
+     var player_score = $('#player_score').html()
+     console.log(typeof(player_score));
+     // get nex quesion id  - ajax get
+       $.ajax({
+         type:'GET',
+         url: player_URL,
+         success: (data) => {
+           player_data = JSON.parse(data);
+
+           // generate list with data for chart
+           for (var key in player_data){
+
+             // mark player result with different color on chart
+             if (parseInt(key) == Math.round(parseInt(player_score)/10)*10) {
+               list.push([key, player_data[key].length, "color: #000000"])
+             }else{
+               list.push([key, player_data[key].length, "color: #e5e4e2"])
+
+             }
+
+           }
+           list.unshift(["score", "Amount of players", { role: "style" } ])
+
+         }
+       }).done(()=>{
+         // prepare google charts
+         google.charts.load("current", {packages:['corechart']});
+         google.charts.setOnLoadCallback(drawChart);
+
+
+
+         // $(player_data).each((ix, val)=>{
+         //    console.log(val);
+         // });
+        });
+
+
+       function drawChart() {
+         var data = google.visualization.arrayToDataTable(list);
+
+         var view = new google.visualization.DataView(data);
+         view.setColumns([0, 1,
+                          { calc: "stringify",
+                            sourceColumn: 1,
+                            type: "string",
+                            role: "annotation" },
+                          2]);
+
+
+         var options = {
+           title: "Other Players Score",
+           width: 1000,
+           height: 400,
+           bar: {groupWidth: "50%"},
+           legend: { position: "none" },
+           vAxes: {
+             // Adds titles to each axis.
+             0: {title: 'amount of players'},
+             1: {title: 'score'}
+           }
+         };
+         var chart = new google.visualization.ColumnChart(document.getElementById("columnchart_values"));
+         chart.draw(view, options);
+       }
+   });
+
+
+ </script>
+{% endblock %}
+
+{% block body %}
+    <div id="columnchart_values" style="width: 900px; height: 300px;"></div>
+
+   <br><br><br> <br> <br>
+
+  <h2>Results</h2>
+  <p>Your score:</p><p id='player_score'>{{ player_score }}</p>
+  <p>Your place: </p>
+
+  <br><br>
+  <h4>Best Players</h4>
+  {% for player in view.players %}
+    <p>{{ forloop.counter }} <strong>{{ player.name }}</strong>  : {{ player.time_points }} </p>
+
+  {% endfor %}
+  <br><br>
+  <p>{{ players_list }}</p>
+
+  <a href="{% url 'quizgame:review' player_shortcode=shortcode %}">Check your answers</a>
+  <a href="{% url 'quizgame:create_player' %}">try again</a>
+  <a href="https://www.facebook.com/sharer/sharer.php?u={{ request.get_host }}{% url 'index' %}">  Share on Facebook  </a>
+  <a href="https://www.linkedin.com/shareArticle?mini=true&url={{ request.get_host }}{% url 'index' %}&title=Check%20your%20architecture%20knowledge!%20&source={{ request.get_host }}{% url 'index' %}">
+  Share on Linkedin
+  </a>
+{% endblock %}

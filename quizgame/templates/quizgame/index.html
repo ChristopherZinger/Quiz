@@ -1,0 +1,17 @@
+
+
+{% extends 'base.html' %}
+
+{% block title %}Home{% endblock %}
+
+{% block head %}
+{% endblock %}
+
+{% block body %}
+
+<h2>Hello in Architecture Quiz Game</h2>
+
+
+<br><br>
+<a href="{% url 'quizgame:create_player' %}" class="btn btn-default"> start game </a>
+{% endblock %}

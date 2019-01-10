@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+
+{% block title %} Question List{% endblock %}
+
+{% block head %}
+
+{% endblock %}
+
+
+{% block body %}
+
+
+
+<h2>{{ object.title }}</h2>
+
+<img src="{{ object.question_img.url }}" width="400px">
+
+<h2>{{ object.question }}</h2>
+<ul>
+  <li> <strong>{{ object.answer_A }}</strong> </li>
+  <li>{{ object.answer_B }}</li>
+  <li>{{ object.answer_C }}</li>
+  <li>{{ object.answer_D }}</li>
+</ul>
+
+
+{% endblock %}

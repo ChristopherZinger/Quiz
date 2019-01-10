@@ -1,0 +1,40 @@
+{% extends 'base.html' %}
+
+{% block title %} Question List{% endblock %}
+
+{% block head %}
+
+<style>
+  ul{
+    list-style-type: none;
+  }
+  ul.question {
+    padding:5px;
+    border: 2px solid gray;
+    border-radius: 5px;
+    margin-bottom:15px;
+  }
+</style>
+
+{% endblock %}
+
+
+{% block body %}
+
+
+<h2>List of All Questions</h2>
+<a href="{% url 'quizgame:create' %}">Add question +</a>
+  {% for item in object_list %}
+<ul class="question">
+    <li><h5> <a href="{% url 'quizgame:detail' pk=item.id %}" style='color:black;'>{{ item.title }}</a> </h5></li>
+    <li><h6>{{ item.question }}</h6></li>
+    <ul>
+      <li> <a href="{% url 'quizgame:update' pk=item.id %}">update</a></li>
+      <li> <a href="{% url 'quizgame:delete' pk=item.id %}">remove</a></li>
+    </ul>
+</ul>
+  {% endfor %}
+
+
+
+{% endblock %}
