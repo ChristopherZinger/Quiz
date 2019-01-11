@@ -8,4 +8,4 @@ urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^quizgame/', include('quizgame.urls', namespace='quizgame')),
     url(r'^$', QuizIndexView.as_view(), name='index'),
-] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT) 

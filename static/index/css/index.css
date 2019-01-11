@@ -1,0 +1,62 @@
+
+body, a {
+  color: white;
+}
+
+a:hover{
+  color: white;
+  text-decoration: none;
+}
+
+
+.jumbo-section{
+  left: 10%;
+  width: 80%;
+}
+
+.jumbotron{
+  padding: 0px;
+  position: absolute;
+  height: 70%;
+  top:15%;
+  width: 70%;
+  left: 15%;
+}
+
+.headline{
+  margin-top: 6em;
+  position: absolute;
+  top: 0px;
+}
+
+img{
+  position: absolute;
+  top: 20%;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+#start-game-btn{
+  position: relative;
+  left: 50%;
+  transform: translateX(-50%);
+  padding: 15px;
+  width: 200px;
+  text-align: center;
+  border: 1px solid white;
+  background-color: rgba(0,0,0,0);
+  transition-duration: 500ms;
+
+}
+
+#start-game-btn:hover{
+
+  transform: scale(1.2);
+  transform-origin: center;
+}
+
+
+.buttons{
+  position: absolute;
+  bottom: 1em;
+}

@@ -5,13 +5,112 @@
 {% block title %}Home{% endblock %}
 
 {% block head %}
+{% load staticfiles %}
+<link rel="stylesheet" href="{% static 'index/css/index.css' %}" type="text/css">
 {% endblock %}
 
 {% block body %}
 
-<h2>Hello in Architecture Quiz Game</h2>
+
+<div class="jumbotron">
+
+  <div class="headline jumbo_section">
+    <h2 id="headline"></h2>
+  </div>
+
+  <div class="images jumbo-section">
+    <img id='jumbo-img' src="/media/img_svg/mies_van_der_roche.svg" alt="">
+  </div>
+
+  <div class="buttons jumbo_section">
+    <div id='start-game-btn' >
+    <a href="{% url 'quizgame:create_player' %}"> start game </a>
+    </div>
+  </div>
+
+</div>
 
 
-<br><br>
-<a href="{% url 'quizgame:create_player' %}" class="btn btn-default"> start game </a>
+
+
+
+
+
+
+<script type="text/javascript">
+
+  var headline_1 = 'Check your knowledge about modern and acient Architecture.'
+  var headline_2 = 'Answer 10 out of 400 unique questions and compare your score to other players'
+  var headline_3 = 'Get to know new interesting facts about world of Architecture'
+  var headline_4 = 'Just start the quiz.'
+  var headline_5 = 'Quiz.'
+  var headlines = [headline_1, headline_2, headline_3, headline_4, headline_5]
+
+
+  var i_interval = 0;
+  var my_headline = "";
+  var current_headline_index = 0;
+  var timer
+
+  // timer loop for diplaying headline letter by letter
+  function headlines_animation(){
+    timer = setInterval(function(){
+        id_to_grab = '#headline'
+        console.log(current_headline_index);
+        if (i_interval < headlines[current_headline_index].length) {
+          my_headline = my_headline + headlines[current_headline_index][i_interval]
+          $(id_to_grab).html(my_headline)
+          i_interval++;
+        }else{
+          if (current_headline_index < (headlines.length - 1)  ) {
+            console.log('current headline index : ' + current_headline_index);
+            current_headline_index++;
+            i_interval = 0;
+            my_headline = ''
+          }else{
+            current_headline_index = 0;
+            i_interval = 0;
+            my_headline = ''
+          }
+          // stop the clock for a white before displaying next headline
+
+          setTimeout(() => {
+            console.log('waiting');
+            headlines_animation()
+
+          },3000)
+          clearInterval(timer)
+        }
+      }, 30);
+  }
+
+function imgchange(){
+
+  img1 = '/media/img_svg/mies_van_der_roche.svg'
+  img2 = '/media/img_svg/parthenon.svg'
+  img3 = '/media/img_svg/villa_rotonda.svg'
+
+  imgs = [img1, img2, img3]
+
+  setInterval(() =>{
+
+  }, 2500)
+
+
+  $("#jumbo-img").attr("src","second.jpg");
+}
+
+  $(document).ready(function() {
+
+
+      // set variables for displayig the headlines
+
+
+      headlines_animation()
+
+
+
+  }) ;
+</script>
+
 {% endblock %}
