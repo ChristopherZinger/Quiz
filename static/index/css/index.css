@@ -1,62 +1,81 @@
 
 body, a {
-  color: white;
+  color: black;
 }
 
 a:hover{
-  color: white;
+  color: rgb(150,150,150);
   text-decoration: none;
 }
 
-
-.jumbo-section{
-  left: 10%;
-  width: 80%;
+#impact{
+  position: absolute;
+  top: 30%;
 }
 
-.jumbotron{
-  padding: 0px;
-  position: absolute;
-  height: 70%;
-  top:15%;
-  width: 70%;
-  left: 15%;
-}
 
-.headline{
-  margin-top: 6em;
+ /* Start button */
+.start-div{
   position: absolute;
-  top: 0px;
-}
-
-img{
-  position: absolute;
-  top: 20%;
   left: 50%;
+  top: 75%;
+  height: 3em;
+  width: 15em;
   transform: translateX(-50%);
 }
 
-#start-game-btn{
-  position: relative;
-  left: 50%;
-  transform: translateX(-50%);
-  padding: 15px;
-  width: 200px;
-  text-align: center;
-  border: 1px solid white;
-  background-color: rgba(0,0,0,0);
-  transition-duration: 500ms;
-
-}
-
-#start-game-btn:hover{
-
-  transform: scale(1.2);
-  transform-origin: center;
-}
-
-
-.buttons{
+.start-line{
   position: absolute;
-  bottom: 1em;
+  display: inline-block;
+  height: 2px;
+  background-color: rgb(150,150,150);
+  top: 20px;
+  transition-duration: 1s;
 }
+
+.start-line-front{  width: 70%;}
+.start-line-back{  width: 0%; right: 0px; }
+
+.start-btn{
+  position: absolute;
+  left: 75%;
+  width: 24%;
+  display: inline-block;
+  transition-duration: 1s;
+}
+
+.start-div:hover {cursor: pointer;}
+.start-div:hover .start-line-front { width: 0%;}
+.start-div:hover .start-line-back { width: 70%;}
+.start-div:hover .start-btn { left: 0%;}
+
+/* Info Div */
+
+
+.info-div{
+  position: absolute;
+  top:50%;
+  left: 420px;
+  height: 5em;
+  width: 17em;
+}
+#info-lines{
+  height: .1em;
+  display: flex;
+  justify-content: space-between;
+}
+
+.info-line{
+  width: 3em;
+  height: 100%;
+  background-color: rgb(200,200,200);
+  transition-duration: 1s;
+}
+
+.info-text{
+  margin-top: 1em ;
+  text-align: justify;
+}
+/* .active{
+  background-color: rgb(150,150,150);
+} */

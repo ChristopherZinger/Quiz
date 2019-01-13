@@ -5,65 +5,97 @@
 {% block title %}Home{% endblock %}
 
 {% block head %}
-{% load staticfiles %}
-<link rel="stylesheet" href="{% static 'index/css/index.css' %}" type="text/css">
+  {% load staticfiles %}
+  <link rel="stylesheet" href="{% static 'index/css/index.css' %}" type="text/css">
+  <link href="https://fonts.googleapis.com/css?family=Montserrat:400,500,600,700,800,900" rel="stylesheet">
 {% endblock %}
 
 {% block body %}
+<div class="my-container unselectable">
+  <!-- Navigation Bar -->
+  <div class="my-nav">
+
+      <a class=" nav-link font font-medium font-size-s dark-gray" href="#"> about</a>
+      <a class=" nav-link right font font-medium font-sie-m dark-gray" href="#">author</a>
+  </div>
+  <h1 id="impact" class="font font-demi dark-gray font-size-xl">Quizzzz.</h1>
 
 
-<div class="jumbotron">
+<a href="{% url 'quizgame:create_player' %}">
+  <div class="start-div">
+      <div class="start-line start-line-front"></div>
+        <p class="start-btn font font-medium font-size-m dark-gray">start</p>
+      <div class="start-line start-line-back"></div>
+  </div>
+</a>
 
-  <div class="headline jumbo_section">
-    <h2 id="headline"></h2>
+<div class="info-div">
+  <div id="info-lines">
+      <div class="info-line active" style="background-color: rgb(150,150,150);"></div>
+      <div class="info-line"></div>
+      <div class="info-line"></div>
+      <div class="info-line"></div>
+      <div class="info-line"></div>
   </div>
 
-  <div class="images jumbo-section">
-    <img id='jumbo-img' src="/media/img_svg/mies_van_der_roche.svg" alt="">
+  <div class="info-text font font-regular font-size-s dark-gray">
+    <p id="headline" class="">Check your knowlede about acient and modern architecture.</p>
   </div>
-
-  <div class="buttons jumbo_section">
-    <div id='start-game-btn' >
-    <a href="{% url 'quizgame:create_player' %}"> start game </a>
-    </div>
-  </div>
-
 </div>
-
-
-
-
-
-
-
+</div>
 
 <script type="text/javascript">
 
-  var headline_1 = 'Check your knowledge about modern and acient Architecture.'
+  var headline_1 = 'Check your knowlede about acient and modern architecture.'
   var headline_2 = 'Answer 10 out of 400 unique questions and compare your score to other players'
-  var headline_3 = 'Get to know new interesting facts about world of Architecture'
-  var headline_4 = 'Just start the quiz.'
-  var headline_5 = 'Quiz.'
+  var headline_3 = 'Learn new facts anbout world of design.'
+  var headline_4 = 'Share your score with your friends..'
+  var headline_5 = 'Good luck motherfucker!.'
   var headlines = [headline_1, headline_2, headline_3, headline_4, headline_5]
-
 
   var i_interval = 0;
   var my_headline = "";
   var current_headline_index = 0;
   var timer
 
+// fade in background
+  function background(){
+
+    $(document.body).css('background-image','url("/static/png/mies_van_der_rohe_2.png")' )
+    $(document.body).css('background-position', 'right top');
+  }
+
+  // change colors of little lines
+  function lines_color(){
+    $.each($('#info-lines').find("div"), function(){
+      if ($(this).hasClass('active')){
+        $(this).css("background-color","rgb(200,200,200)");
+        $(this).removeClass('active');
+        if ($(this).next().length) {
+          $(this).next().addClass('active');
+          $(this).next().css("background-color","rgb(150,150,150)");
+        }else{
+          $('#info-lines').children().first().addClass('active');
+          $('#info-lines').children().first().css("background-color","rgb(150,150,150)");
+        }
+        return false;
+      }
+    })
+  }
+
   // timer loop for diplaying headline letter by letter
   function headlines_animation(){
     timer = setInterval(function(){
         id_to_grab = '#headline'
-        console.log(current_headline_index);
+
+        //check if all the letter were already displayed
         if (i_interval < headlines[current_headline_index].length) {
           my_headline = my_headline + headlines[current_headline_index][i_interval]
           $(id_to_grab).html(my_headline)
           i_interval++;
         }else{
+          //check if all the headlines were displayed if yes turn on the first one again
           if (current_headline_index < (headlines.length - 1)  ) {
-            console.log('current headline index : ' + current_headline_index);
             current_headline_index++;
             i_interval = 0;
             my_headline = ''
@@ -74,15 +106,16 @@
           }
           // stop the clock for a white before displaying next headline
 
-          setTimeout(() => {
-            console.log('waiting');
-            headlines_animation()
 
+          setTimeout(() => {
+            headlines_animation()
+            lines_color()
           },3000)
           clearInterval(timer)
         }
       }, 30);
   }
+
 
 function imgchange(){
 
@@ -92,24 +125,26 @@ function imgchange(){
 
   imgs = [img1, img2, img3]
 
-  setInterval(() =>{
+  var i_img = 0,
+  timer_img = setInterval(() =>{
+    $("#jumbo-img").fadeOut('1000', ()=>{
+      $("#jumbo-img").attr("src",imgs[i_img]);
+    });
 
+
+    $("#jumbo-img").fadeIn('1000');
+    i_img++;
+    if( i_img > 2){i_img = 0}
   }, 2500)
 
 
-  $("#jumbo-img").attr("src","second.jpg");
+
 }
 
   $(document).ready(function() {
-
-
-      // set variables for displayig the headlines
-
-
+      background()
       headlines_animation()
-
-
-
+      imgchange()
   }) ;
 </script>
 

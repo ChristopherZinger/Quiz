@@ -1,3 +1,65 @@
+
+/* general settings */
 body{
-  background-color: white;
+  background-repeat: no-repeat;
+   overflow: hidden; 
+}
+
+.left{  float: left;}
+.right{ float: right;}
+
+.unselectable{
+  user-select: none;
+  -moz-user-select: none;
+  -khtml-user-select: none;
+  -webkit-user-select: none;
+  -o-user-select: none;
+}
+
+/* color options */
+.light-gray{ color: rgb(230,230,230); }
+.gray{ color: rgb(200,200,200); }
+.dark-gray{ color: rgb(150,150,150); }
+
+
+/* font options */
+.font {   font-family: 'Montserrat', sans-serif;}
+
+.font-demi{ font-weight : 700; }
+.font-medium{ font-weight : 500;}
+.font-regular{ font-weight : 300; }
+
+.font-size-xl{ font-size: 110pt;}
+.font-size-l{  font-size: 36pt;}
+.font-size-m{  font-size: 18pt;}
+.font-size-s{  font-size: 12pt;}
+
+/* my container */
+.my-container{
+  width: 100%;
+  height: 100%;
+  padding: 0em 5em 0em 5em;
+}
+
+/* navigation bar */
+.my-nav{
+  top: 0px;
+  width: 100%;
+  height: 4em;
+  display: table;
+
+}
+
+.nav-link{
+
+
+  display: inline-block;
+  line-height: 4em; this aligns verticaly text */
+  vertical-align: middle;
+  border-bottom: 2px solid rgba(0,0,0,0);
+  transition-duration: 1s;
+}
+
+.nav-link:hover{
+  border-bottom: 2px solid rgba(150,150,150,1);
 }
