@@ -11,16 +11,11 @@
 {% endblock %}
 
 {% block body %}
-<div class="my-container unselectable">
-  <!-- Navigation Bar -->
-  <div class="my-nav">
+{% include "navbar.html" %}
 
-      <a class=" nav-link font font-medium font-size-s dark-gray" href="#"> about</a>
-      <a class=" nav-link right font font-medium font-sie-m dark-gray" href="#">author</a>
-  </div>
   <h1 id="impact" class="font font-demi dark-gray font-size-xl">Quizzzz.</h1>
 
-
+<!-- Start button -->
 <a href="{% url 'quizgame:create_player' %}">
   <div class="start-div">
       <div class="start-line start-line-front"></div>
@@ -29,6 +24,8 @@
   </div>
 </a>
 
+<!-- Information under quizzzz -->
+<!-- section markers -->
 <div class="info-div">
   <div id="info-lines">
       <div class="info-line active" style="background-color: rgb(150,150,150);"></div>
@@ -37,12 +34,12 @@
       <div class="info-line"></div>
       <div class="info-line"></div>
   </div>
-
+<!-- info text -->
   <div class="info-text font font-regular font-size-s dark-gray">
     <p id="headline" class="">Check your knowlede about acient and modern architecture.</p>
   </div>
 </div>
-</div>
+
 
 <script type="text/javascript">
 

@@ -2,7 +2,7 @@
 /* general settings */
 body{
   background-repeat: no-repeat;
-   overflow: hidden; 
+   overflow: hidden;
 }
 
 .left{  float: left;}
@@ -63,3 +63,55 @@ body{
 .nav-link:hover{
   border-bottom: 2px solid rgba(150,150,150,1);
 }
+
+
+/* Start button */
+.start-div{
+ position: absolute;
+ left: 50%;
+ top: 75%;
+ height: 3em;
+ width: 15em;
+ transform: translateX(-50%);
+ border: 0px solid white;
+ background-color: rgba(0,0,0,0);
+ padding: 0px;
+ margin: 0px;
+}
+
+.start-div:active, .start-div:focus{
+  outline: none !important;
+  box-shadow: none;
+  border:0px solid white;
+  background-color: rgb(230,230,230);
+}
+
+input, select, textarea{
+    color: rgb(150, 150, 150);
+}
+
+.start-line{
+ position: absolute;
+ display: inline-block;
+ height: 2px;
+ background-color: rgb(150,150,150);
+ top: 20px;
+ transition-duration: 1s;
+}
+
+.start-line-front{  width: 70%; left: 0px;}
+.start-line-back{  width: 0%; right: 0px; }
+
+.start-btn{
+  top:0px;
+ position: absolute;
+ left: 75%;
+ width: 24%;
+ display: inline-block;
+ transition-duration: 1s;
+}
+
+.start-div:hover {cursor: pointer;}
+.start-div:hover .start-line-front { width: 0%;}
+.start-div:hover .start-line-back { width: 70%;}
+.start-div:hover .start-btn { left: 0%;}

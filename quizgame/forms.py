@@ -23,7 +23,9 @@ class QuestionCreateForm(forms.ModelForm):
 
         ]
 
+
 class PlayerCreateForm(forms.ModelForm):
+    name = forms.CharField(widget=forms.TextInput(attrs={'class':'name-input'}))
     class Meta:
         model = Player
         fields = [

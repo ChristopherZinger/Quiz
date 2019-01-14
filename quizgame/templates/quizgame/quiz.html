@@ -3,46 +3,49 @@
 {% block title %}Questions{% endblock %}
 
 {% block head %}
-
-<style media="screen">
-  .inline{
-    display:inline-block;
-  }
-  .selected{
-    background-color:black;
-    color:white;
-  }
-</style>
-
+  {% load staticfiles %}
+  <link rel="stylesheet" href="{% static 'quiz/css/quiz.css' %}">
 {% endblock %}
 
 
 
 {% block body %}
-
-<h2 class="inline">Current score : &nbsp;</h2>
-<h2 id='score' class="inline">0</h2>
-<h2 class="inline">&nbsp; out of &nbsp;</h2>
-<h2 id='question_nr' class="inline"></h2>
-
-<h3> timer: </h3> <h3 id='clock'></h3>
+  {% include "navbar-quiz.html" %}
 
 
+  <div class="quiz-div">
+    <!-- Time bar -->
+    <div class="row-70 time-div">
+      <div id='time-left' class="time-line time-left left" style="width:100%;"></div>
+      <div id='time-passed' class="time-line time-passed ring" style="width:0%;"></div>
 
-<p id="q-title"></p>
-<div id="img">
+    </div>
+    <!-- question section -->
+    <div class=" full-row question-div">
+      <h4 id='q-question' class="font font-size-m font-regular question dark-gray" ></h4>
+    </div>
+    <!-- image section -->
+    <div class="full-row img-div">
+      <div id="img">
 
-</div>
-<h4 id='q-question'></h4>
-<ul>
-  <li id='A' class="answer" selected="false"></li>
-  <li id='B' class="answer" selected="false"></li>
-  <li id='C' class="answer" selected="false"></li>
-  <li id='D' class="answer" selected="false"></li>
-</ul>
 
-<button id='nextButton' type="button" name="button">Next question</button>
+      </div>
+    </div>
+    <!-- answers section -->
+    <div class="full-row answers-div">
+      <table class="font font-size-s font-regular dark-gray full-row">
+        <tr>
+          <td id="A" class="answer"></td>
+          <td id="B" class="answer"></td>
+        </tr>
+        <tr>
+          <td id="C" class="answer"></td>
+          <td id="D" class="answer"></td>
+        </tr>
+      </table>
+    </div>
 
+  </div>
 
 
 <script type="text/javascript">
@@ -92,7 +95,14 @@
     clock = setInterval(function(){
       if (time > 0){
         time -= 1
-        $('#clock').html(`${time}`)
+
+        x = Math.round(time * 100 / 30)
+        y = 100 - x
+        width1 = x.toString() + '%'
+        width2 = y.toString() + '%'
+        $("#time-left").css('width',width1);
+        $("#time-passed").css('width',width2);
+
       }else{
         clearInterval(clock)
         // check if this was last question and results should be generated
@@ -131,21 +141,6 @@
       url: question_post_url,
       dataType: 'json',
       data: post_data,
-      success: (data) => {
-        remain_questions_nr = data['remain_questions_nr']
-        if (remain_questions_nr <= 1) {
-
-          if ($('#nextButton').length){
-            $("#nextButton").attr("id","resultsButton");
-            $('#resultsButton').html('Results!')
-            // handle next button
-            $("#resultsButton").click(function(){
-              submit_answer()
-              results()
-            }); // button click
-          }
-        }
-      }
     }).done(()=>{
       // remove selection
       remove_selection();
@@ -165,7 +160,6 @@
         success: (data) => {
           //question_id = data.current_question_obj
           if( data.status ){
-            console.log('closed quiz');
             results();
           }else{
             current_question_obj = data
@@ -214,16 +208,8 @@ $(document).ready(function() {
   $(".answer").click(function(){
   remove_selection()
   $(this).toggleClass('selected')
+  submit_answer()
   });
-
-  // handle next button
-  $("#nextButton").click(function(){
-    // submit answer
-    submit_answer()
-    // get new question
-    // get_question()
-  }); // button click
-
 
 
 });

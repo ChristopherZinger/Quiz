@@ -1,0 +1,31 @@
+label{
+  display: none;
+}
+
+
+.input-div{
+  position: absolute;
+
+  width: 30em;
+  height: 10em;
+  top:50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.name-input{
+  width: 100%;
+  border: 1px solid rgb(200,200,200);
+
+}
+
+.name-input:focus, .name-input:active{
+  outline: none !important;
+  border: 1px solid rgb(150, 150, 150);
+  box-shadow: 0 0 0px 0px rgb(200, 200, 200);
+}
+
+.input-start{
+  border:0px solid white;
+  background-color: rgba(0,0,0,0);
+}

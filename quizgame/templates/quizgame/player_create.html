@@ -5,18 +5,30 @@
 {% block title %}Player Name{% endblock %}
 
 {% block head %}
+  {% load staticfiles %}
+  <link rel="stylesheet" href="{% static 'create_player/css/create_player.css' %}">
 {% endblock %}
 
 {% block body %}
+{% include "navbar.html" %}
 
-<h2> Player Name</h2>
+<div class=" input-div">
+  <h2 class="font font-size-s font-medium dark-gray"> Player Name</h2>
+
+  <form  method="POST">
+    {% csrf_token %}
+    {{ form.as_p }}
 
 
-<form  method="POST">
+      <button class="start-div input-start" type="submit" >
+          <div class="start-line start-line-front"></div>
+            <div class="start-btn font font-medium font-size-m dark-gray ">start</div>
+          <div class="start-line start-line-back"></div>
+      </button>
 
-{% csrf_token %}
-{{ form.as_p }}
-<input type="submit" class="btn btn-default value="submit">
-</form>
+  </form>
+
+</div>
+
 
 {% endblock %}

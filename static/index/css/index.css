@@ -13,45 +13,7 @@ a:hover{
   top: 30%;
 }
 
-
- /* Start button */
-.start-div{
-  position: absolute;
-  left: 50%;
-  top: 75%;
-  height: 3em;
-  width: 15em;
-  transform: translateX(-50%);
-}
-
-.start-line{
-  position: absolute;
-  display: inline-block;
-  height: 2px;
-  background-color: rgb(150,150,150);
-  top: 20px;
-  transition-duration: 1s;
-}
-
-.start-line-front{  width: 70%;}
-.start-line-back{  width: 0%; right: 0px; }
-
-.start-btn{
-  position: absolute;
-  left: 75%;
-  width: 24%;
-  display: inline-block;
-  transition-duration: 1s;
-}
-
-.start-div:hover {cursor: pointer;}
-.start-div:hover .start-line-front { width: 0%;}
-.start-div:hover .start-line-back { width: 70%;}
-.start-div:hover .start-btn { left: 0%;}
-
 /* Info Div */
-
-
 .info-div{
   position: absolute;
   top:50%;
