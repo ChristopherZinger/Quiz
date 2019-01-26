@@ -5,108 +5,132 @@
 {% block title %}Home{% endblock %}
 
 {% block head %}
-<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
- <script type="text/javascript">
+  {% load staticfiles %}
+  <link rel="stylesheet" href="{% static 'results/css/results.css' %}">
 
 
+   <script type="text/javascript">
+       $(document).ready(function() {
+         // global
+         var player_data
+         var list=[]
+         var player_URL = 'http://127.0.0.1:8000/quizgame/api/get_players_chart/'
+         var player_score = $('#player_score').html()
+         // get nex quesion id  - ajax get
+           $.ajax({
+             type:'GET',
+             url: player_URL,
+             success: (data) => {
+               player_data = JSON.parse(data);
 
-   $(document).ready(function() {
-     // global
-     var player_data
-     var list=[]
-     var player_URL = 'http://127.0.0.1:8000/quizgame/api/get_players_chart/'
-     var player_score = $('#player_score').html()
-     console.log(typeof(player_score));
-     // get nex quesion id  - ajax get
-       $.ajax({
-         type:'GET',
-         url: player_URL,
-         success: (data) => {
-           player_data = JSON.parse(data);
+               // generate list with data for chart
+               for (var key in player_data){
 
-           // generate list with data for chart
-           for (var key in player_data){
+                 // mark player result with different color on chart
+                 if (parseInt(key) == Math.round(parseInt(player_score)/10)*10) {
+                   list.push([key, player_data[key].length, "rgb(150,150,150)"])
+                 }else{
+                   list.push([key, player_data[key].length, "rgb(200,200,200)"])
+                 }
+               }
 
-             // mark player result with different color on chart
-             if (parseInt(key) == Math.round(parseInt(player_score)/10)*10) {
-               list.push([key, player_data[key].length, "color: #000000"])
-             }else{
-               list.push([key, player_data[key].length, "color: #e5e4e2"])
+              // create html to insert into chart-container
+               var insertHtml = ''
+               $.each(list, (i, val)=>{
+                 score = val[1];
+                 space = 100-score;
+                 color = val[2]
+                 insertHtml += "<div class='chart-poll' > <div style='height:" + space + "%;'> </div> <div style='height:" + score + "%; background-color:" + color +"'> </div> </div>"
+                })
+
+               $('.chart-container').html(insertHtml);
 
              }
-
-           }
-           list.unshift(["score", "Amount of players", { role: "style" } ])
-
-         }
-       }).done(()=>{
-         // prepare google charts
-         google.charts.load("current", {packages:['corechart']});
-         google.charts.setOnLoadCallback(drawChart);
+           })
+         }) // documet ready
 
 
 
-         // $(player_data).each((ix, val)=>{
-         //    console.log(val);
-         // });
-        });
 
-
-       function drawChart() {
-         var data = google.visualization.arrayToDataTable(list);
-
-         var view = new google.visualization.DataView(data);
-         view.setColumns([0, 1,
-                          { calc: "stringify",
-                            sourceColumn: 1,
-                            type: "string",
-                            role: "annotation" },
-                          2]);
-
-
-         var options = {
-           title: "Other Players Score",
-           width: 1000,
-           height: 400,
-           bar: {groupWidth: "50%"},
-           legend: { position: "none" },
-           vAxes: {
-             // Adds titles to each axis.
-             0: {title: 'amount of players'},
-             1: {title: 'score'}
-           }
-         };
-         var chart = new google.visualization.ColumnChart(document.getElementById("columnchart_values"));
-         chart.draw(view, options);
-       }
-   });
-
-
- </script>
+   </script>
 {% endblock %}
 
 {% block body %}
-    <div id="columnchart_values" style="width: 900px; height: 300px;"></div>
 
-   <br><br><br> <br> <br>
 
-  <h2>Results</h2>
-  <p>Your score:</p><p id='player_score'>{{ player_score }}</p>
-  <p>Your place: </p>
+{% include 'navbar.html' %}
 
-  <br><br>
-  <h4>Best Players</h4>
+
+<div class="content">
+  <!-- left side results points and others-->
+
+  <div class="my-col-l">
+    <h1  class="font font-demi dark-gray font-size-xl">Result: <p id='player_score' class="inline-block">{{ player_score }}</p> </h1>
+
+
+    <div class="score">
+      <span class="font font-size-s font-regular dark-gray"><p class="inline-block" >Correct answers:</p><p class="inline-block" >{{ correct_answer }}</p></span>
+    </div>
+
+
+      <!-- buttons -->
+      <div id="button-section" class="">
+        <!-- again button -->
+        <a class="" href="{% url 'quizgame:create_player' %}">
+          <div class="start-div button">
+              <div class="start-line start-line-front"></div>
+                <p class="start-btn font font-medium font-size-m dark-gray">again</p>
+              <div class="start-line start-line-back"></div>
+          </div>
+        </a>
+
+        <!-- review button -->
+        <a class="" href="{% url 'quizgame:review' player_shortcode=shortcode %}">
+          <div class="start-div button">
+              <div class="start-line start-line-front"></div>
+                <p class="start-btn font font-medium font-size-m dark-gray">review</p>
+              <div class="start-line start-line-back"></div>
+          </div>
+        </a>
+
+        <!-- share button -->
+        <a class="" href="">
+          <div class="start-div button">
+              <div class="start-line start-line-front"></div>
+                <p class="start-btn font font-medium font-size-m dark-gray">share</p>
+              <div class="start-line start-line-back"></div>
+          </div>
+        </a>
+
+      </div>
+  </div>
+  <!-- right side - chart -->
+  <div class="my-col-r">
+
+    <div class="chart">
+      <p class="font font-size-s font-regular dark-gray" style="text-align:center">Your Position : 20200</p>
+      <div class="chart-container">
+
+      </div>
+    </div>
+
+  </div>
+</div>
+
+
+  <!-- <h4>Best Players</h4>
   {% for player in view.players %}
     <p>{{ forloop.counter }} <strong>{{ player.name }}</strong>  : {{ player.time_points }} </p>
 
   {% endfor %}
   <br><br>
-  <p>{{ players_list }}</p>
+  <p>{{ players_list }}</p> -->
 
-  <a href="{% url 'quizgame:review' player_shortcode=shortcode %}">Check your answers</a>
+  <!-- <a href="{% url 'quizgame:review' player_shortcode=shortcode %}">Check your answers</a>
   <a href="{% url 'quizgame:create_player' %}">try again</a>
   <a href="https://www.facebook.com/sharer/sharer.php?u={{ request.get_host }}{% url 'index' %}">  Share on Facebook  </a>
   <a href="https://www.linkedin.com/shareArticle?mini=true&url={{ request.get_host }}{% url 'index' %}&title=Check%20your%20architecture%20knowledge!%20&source={{ request.get_host }}{% url 'index' %}">
   Share on Linkedin
-  </a>
+  </a> -->
+
 {% endblock %}

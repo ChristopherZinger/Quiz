@@ -3,7 +3,13 @@
 
 {% block title %} Check answers {% endblock %}
 
+
+
 {% block head %}
+{% load staticfiles %}
+
+<link rel="stylesheet" href="{% static 'review/css/review.css' %}">
+<link rel="stylesheet" href="{% static 'quiz/css/quiz.css' %}">
 <style media="screen">
  #correct{
    color:blue;
@@ -14,19 +20,61 @@
 
 
 
+
 {% block body %}
+{% include 'navbar-home.html' %}
 
-<h3>Check your answers</h3>
 
+<!-- answers section -->
 {% for question in questions %}
- <p>{{ question.question }}</p>
-<ul>
-  <li {% if question.correct_answer == 'A' %}id="correct"{% endif %} >{{ question.answer_A }}</li>
-  <li {% if question.correct_answer == 'B' %}id="correct"{% endif %}>{{ question.answer_B }}</li>
-  <li {% if question.correct_answer == 'C' %}id="correct"{% endif %}>{{ question.answer_C }}</li>
-  <li {% if question.correct_answer == 'D' %}id="correct"{% endif %}>{{ question.answer_D }}</li>
-</ul>
-
+  <div class="review">
+    <!-- Quiestion -->
+    <p class="font font-size-m font-medium dark-gray question">{{ question.question }}</p>
+    <!-- image -->
+    <div class="full-row img-div">
+      <img src="{% if question.question_img %}{{ question.question_img.url }}{% endif %}">
+    </div>
+    <!-- Answers -->
+    <table class="font font-size-s font-regular dark-gray full-row">
+      <tr>
+        <td id="A" class="answer {% if question.correct_answer == 'A' %}dark-gray{% else %}light-gray{% endif %}">{{ question.answer_A }}</td>
+        <td id="B" class="answer {% if question.correct_answer == 'B' %}dark-gray{% else %}light-gray{% endif %}">{{ question.answer_B }}</td>
+      </tr>
+      <tr>
+        <td id="C" class="answer {% if question.correct_answer == 'C' %}dark-gray{% else %}light-gray{% endif %}">{{ question.answer_C }}</td>
+        <td id="D" class="answer {% if question.correct_answer == 'D' %}dark-gray{% else %}light-gray{% endif %}">{{ question.answer_D }}</td>
+      </tr>
+    </table>
+    <button id='next-btn' class='font font-size-s font-regular gray' type="button" name="button"><i class="fas fa-arrow-right"></i></button>
+  </div>
 {% endfor %}
+
+
+
+<script type="text/javascript">
+
+
+  $(document).ready(()=>{
+    $('.review').first().fadeIn().addClass('active')
+
+    $('button').click(()=>{
+      if ($('.active').next().hasClass('review') ){
+        $('.active').fadeOut(500).removeClass('active').next().addClass('active')
+        setTimeout(()=>{
+          $('.active').fadeIn(500)
+        },500)
+      }else{
+        $('.active').fadeOut(500).removeClass('active')
+        $('.review').first().addClass('active')
+        setTimeout(()=>{
+          $('.active').fadeIn(500)
+        },500)
+      }
+
+    })
+
+  })
+
+</script>
 
 {% endblock %}

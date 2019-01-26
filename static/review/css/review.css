@@ -1,0 +1,31 @@
+
+
+.review{
+  position: absolute;
+  top: 50%;
+  left: 20%;
+
+  transform: translateY(-50%);
+  display: none;
+  width: 60%;
+  background-color: rgb(245,245,245);
+  border-radius: 20px;
+  padding: 20px;
+
+}
+
+#next-btn{
+    float: right;
+    border: none; 
+    background-color: white;
+    padding: 5px 25px 5px 25px;
+    background-color: rgb(200,200,200);
+    transition-duration: .5s;
+    margin-right: 15px;
+    color: rgb(240,240,240);
+}
+
+#next-btn:hover{
+    background-color: rgb(150,150,150);
+
+}

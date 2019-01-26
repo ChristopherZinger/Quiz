@@ -1,0 +1,73 @@
+.content{
+  top: 20%;
+  height: 100%;
+}
+
+.my-col-l{
+  margin-top: 15%;
+  float: left;
+  width: 65%;
+  margin-left: : 0px;
+  margin-right: : 0px;
+  height: 100%;
+}
+
+.my-col-r{
+  margin-top: 15%;
+  float: right;
+  width: 35%;
+  margin-left: : 0px;
+  margin-right: : 0px;
+  height: 100%;
+}
+
+
+
+/* Buttons and button section */
+#button-section{
+  height: 10%;
+  bottom: 0px;
+  display: flex;
+  justify-content: space-between;
+  bottom: 0px;
+}
+
+.button{
+  width: 3em;
+  height: 100%;
+}
+
+.start-div{
+ position: relative;
+ height: 3em;
+ width: 15em;
+ border: 0px solid white;
+ background-color: rgba(0,0,0,0);
+ padding: 0px;
+ margin: 0px;
+}
+
+/* Custom Chart */
+.chart{
+  background-color: rgb(230,230,230);
+  border-radius: 20px;
+  padding: 2em;
+  width: 80%;
+  margin: auto;
+}
+.chart-container{
+  margin: auto;
+  width: 90%;
+  height: 15em;
+  display: flex;
+  justify-content: space-between;
+}
+
+.chart-poll{
+ position: relative;
+ width: 15px;
+}
+
+.chart-poll:hover{
+  border:1px solid rgb(150,150,150);
+}

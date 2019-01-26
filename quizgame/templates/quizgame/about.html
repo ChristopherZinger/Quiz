@@ -1,0 +1,54 @@
+{% extends 'base.html' %}
+
+
+{% block head %}
+{% load staticfiles %}
+  <link rel="stylesheet" href="{% static 'results/css/results.css' %}">
+{% endblock %}
+
+
+
+{% block body %}
+
+{% include 'navbar-home.html' %}
+
+
+<div class="content">
+<div class="my-col-l">
+  <h1  class="font font-demi dark-gray font-size-xl">about </h1>
+
+    <!-- buttons -->
+    <div id="button-section" class="">
+      <!-- again button -->
+      <a class="" href="{% url 'quizgame:create_player' %}">
+        <div class="start-div button">
+            <div class="start-line start-line-front"></div>
+              <p class="start-btn font font-medium font-size-m dark-gray">play</p>
+            <div class="start-line start-line-back"></div>
+        </div>
+      </a>
+
+      <!-- share button -->
+      <a class="" href="">
+        <div class="start-div button">
+            <div class="start-line start-line-front"></div>
+              <p class="start-btn font font-medium font-size-m dark-gray">share</p>
+            <div class="start-line start-line-back"></div>
+        </div>
+      </a>
+
+    </div>
+</div>
+<!-- right side - chart -->
+<div class="my-col-r">
+
+
+    <p class="font font-size-s font-regular dark-gray" style="text-align:justify; padding:20px;"> The quiz is created because i got to much free time and I dont like people. The quiz is created because i got to much free time and I dont like people. The quiz is created because i got to much free time and I dont like people. The quiz is created because i got to much free time and I dont like people. The quiz is created because i got to much free time and I dont like people. The quiz is created because i got to much free time and I dont like people. The quiz is created because i got to much free time and I dont like people. The quiz is created because i got to much free time and I dont like people. The quiz is created because i got to much free time and I dont like people.</p>
+
+
+    </div>
+  </div>
+
+
+
+{% endblock %}

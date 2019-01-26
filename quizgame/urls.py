@@ -1,5 +1,7 @@
 from django.conf.urls import url, include
 from .views import (
+    AboutView,
+    AuthorView,
     PlayerCreateView,
     PlayerReviewView,
     QuestionCreateView,
@@ -31,6 +33,8 @@ urlpatterns = [
     url(r'^game/(?P<player_shortcode>[\w=]+)/$', QuizQuestionView.as_view(), name='question'),
     url(r'^results/(?P<player_shortcode>[\w=]+)/$', QuizResultsView.as_view(), name='results'),
     url(r'^review/(?P<player_shortcode>[\w=]+)/$', PlayerReviewView.as_view(), name='review'),
+    url(r'^author/$', AuthorView.as_view(), name='author'),
+    url(r'^about/$', AboutView.as_view(), name='about'),
 
     # API
     url(r'^api/', include('quizgame.api.urls', namespace='api')),

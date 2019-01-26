@@ -5,6 +5,10 @@ body{
    overflow: hidden;
 }
 
+.inline-block{
+  display: inline-block;
+}
+
 .left{  float: left;}
 .right{ float: right;}
 
@@ -14,6 +18,11 @@ body{
   -khtml-user-select: none;
   -webkit-user-select: none;
   -o-user-select: none;
+}
+
+/* huge text in the middle like 'Quizzz', 'Results' or 'about' */
+#impact{
+  position: absolute;
 }
 
 /* color options */
@@ -32,13 +41,16 @@ body{
 .font-size-xl{ font-size: 110pt;}
 .font-size-l{  font-size: 36pt;}
 .font-size-m{  font-size: 18pt;}
+.font-size-sm{  font-size: 15pt;}
 .font-size-s{  font-size: 12pt;}
+
 
 /* my container */
 .my-container{
   width: 100%;
   height: 100%;
   padding: 0em 5em 0em 5em;
+
 }
 
 /* navigation bar */
@@ -51,8 +63,6 @@ body{
 }
 
 .nav-link{
-
-
   display: inline-block;
   line-height: 4em; this aligns verticaly text */
   vertical-align: middle;
@@ -64,14 +74,14 @@ body{
   border-bottom: 2px solid rgba(150,150,150,1);
 }
 
-
 /* Start button */
+
 .start-div{
  position: absolute;
  left: 50%;
  top: 75%;
  height: 3em;
- width: 15em;
+ width: 17em;
  transform: translateX(-50%);
  border: 0px solid white;
  background-color: rgba(0,0,0,0);
@@ -106,12 +116,66 @@ input, select, textarea{
   top:0px;
  position: absolute;
  left: 75%;
- width: 24%;
  display: inline-block;
  transition-duration: 1s;
 }
 
-.start-div:hover {cursor: pointer;}
-.start-div:hover .start-line-front { width: 0%;}
-.start-div:hover .start-line-back { width: 70%;}
-.start-div:hover .start-btn { left: 0%;}
+
+
+
+
+@media only screen and (min-width: 1201px) {
+  #impact{ top: 30%; }
+  .start-div{width: 25%;}
+  .start-div{
+    left: 75%;
+    width: 17em;
+  }
+  /* hover button */
+  .start-div:hover {cursor: pointer;}
+  .start-div:hover .start-line-front { width: 0%;}
+  .start-div:hover .start-line-back { width: 70%;}
+  .start-div:hover .start-btn { left: 0%;}
+}
+
+
+@media only screen and (min-width: 923px) and (max-width: 1200px) {
+  #impact{
+    margin: auto;
+    left: 50%;
+    top: 25%;
+    transform: translate(-50%, -50%);
+  }
+
+  .start-div{width: 25%;}
+  /* hover button */
+  .start-div:hover {cursor: pointer;}
+  .start-div:hover .start-line-front { width: 0%;}
+  .start-div:hover .start-line-back { width: 70%;}
+  .start-div:hover .start-btn { left: 0%;}
+}
+
+
+@media only screen and (min-width: 769px) and (max-width: 922px) {
+  .font-size-xl{ font-size: 80pt;}
+  #impact{
+    margin: auto;
+    left: 50%;
+    top: 25%;
+    transform: translate(-50%, -50%);
+  }
+  .start-div{width: 35%;}
+}
+
+
+@media only screen and (max-width: 768px) {
+
+  .font-size-xl{ font-size: 40pt;}
+  #impact{
+    margin: auto;
+    left: 50%;
+    top: 25%;
+    transform: translate(-50%, -50%);
+  }
+  .start-div{width: 35%;}
+}

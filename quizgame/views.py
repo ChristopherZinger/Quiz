@@ -68,7 +68,6 @@ class PlayerReviewView(TemplateView):
         shortcode = self.kwargs.get('player_shortcode')
         questions = Player.objects.get(shortcode=shortcode).questions.all()
         context['questions'] = questions
-        print('----------------------------------------')
         print(context)
         return context
 
@@ -96,9 +95,16 @@ class QuizResultsView(TemplateView):
 
         # player score
         context['player_score'] = Player.objects.get(shortcode=shortcode).time_points
+        context['correct_answer'] = Player.objects.get(shortcode=shortcode).points
         context['shortcode'] = shortcode
         return context
 
 
 class QuizQuestionView(TemplateView):
     template_name = 'quizgame/quiz.html'
+
+class AboutView(TemplateView):
+    template_name = 'quizgame/about.html'
+
+class AuthorView(TemplateView):
+    template_name = 'quizgame/author.html'
