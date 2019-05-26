@@ -9,45 +9,49 @@
 {% load staticfiles %}
 
 <link rel="stylesheet" href="{% static 'review/css/review.css' %}">
-<link rel="stylesheet" href="{% static 'quiz/css/quiz.css' %}">
-<style media="screen">
- #correct{
-   color:blue;
- }
-</style>
+
+
 
 {% endblock %}
 
 
 
 
+
 {% block body %}
-{% include 'navbar-home.html' %}
+  {% include 'navbar-dropdown.html' %}
+<div class="my-container">
+  {% include 'navbar.html' %}
 
 
-<!-- answers section -->
-{% for question in questions %}
+  <!-- answers section -->
+  {% for question in questions %}
   <div class="review">
-    <!-- Quiestion -->
-    <p class="font font-size-m font-medium dark-gray question">{{ question.question }}</p>
-    <!-- image -->
-    <div class="full-row img-div">
-      <img src="{% if question.question_img %}{{ question.question_img.url }}{% endif %}">
+    <div class="review-container">
+      <!-- Quiestion -->
+      <div class="question-div">
+        <h4 id='q-question' class="font-p font-size-m font-regular question black" >{{ question.question }}</h4>
+      </div>
+
+      <!-- image -->
+      <div id="img" class="img-div">
+        <img src="{% if question.question_img %}{{ question.question_img.url }}{% endif %}">
+      </div>
+      <!-- Answers -->
+      <div class="answers-div">
+        <div id="A" class="answer font-p font-size-s {% if question.correct_answer == 'A' %}black{% else %}light-gray{% endif %}"><p>{{ question.answer_A }}</p></div>
+        <div id="B" class="answer font-p font-size-s {% if question.correct_answer == 'B' %}black{% else %}light-gray{% endif %}"><p>{{ question.answer_B }}</p></div>
+        <div id="C" class="answer font-p font-size-s {% if question.correct_answer == 'C' %}black{% else %}light-gray{% endif %}"><p>{{ question.answer_C }}</p></div>
+        <div id="D" class="answer font-p font-size-s {% if question.correct_answer == 'D' %}black{% else %}light-gray{% endif %}"><p>{{ question.answer_D }}</p></div>
+      </div>
+      <button id='next-btn' class='font font-size-s font-regular gray' type="button" name="button"><i class="fas fa-arrow-right"></i></button>
+
     </div>
-    <!-- Answers -->
-    <table class="font font-size-s font-regular dark-gray full-row">
-      <tr>
-        <td id="A" class="answer {% if question.correct_answer == 'A' %}dark-gray{% else %}light-gray{% endif %}">{{ question.answer_A }}</td>
-        <td id="B" class="answer {% if question.correct_answer == 'B' %}dark-gray{% else %}light-gray{% endif %}">{{ question.answer_B }}</td>
-      </tr>
-      <tr>
-        <td id="C" class="answer {% if question.correct_answer == 'C' %}dark-gray{% else %}light-gray{% endif %}">{{ question.answer_C }}</td>
-        <td id="D" class="answer {% if question.correct_answer == 'D' %}dark-gray{% else %}light-gray{% endif %}">{{ question.answer_D }}</td>
-      </tr>
-    </table>
-    <button id='next-btn' class='font font-size-s font-regular gray' type="button" name="button"><i class="fas fa-arrow-right"></i></button>
   </div>
-{% endfor %}
+
+  {% endfor %}
+</div>
+
 
 
 

@@ -28,7 +28,7 @@ class Question(models.Model):
         ( A , answer_A),
         ( B , answer_B),
         ( C , answer_C),
-        ( D , answer_C),
+        ( D , answer_D),
     )
     correct_answer = models.CharField( max_length=1, choices=anwsers, default=A )
 

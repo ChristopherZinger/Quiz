@@ -1,4 +1,4 @@
-{% extends 'base.html' %}
+{% extends 'base-admin.html' %}
 
 {% block title %} Question List{% endblock %}
 
@@ -13,7 +13,7 @@
 
 <h2>{{ object.title }}</h2>
 
-<img src="{{ object.question_img.url }}" width="400px">
+{% if object.question_img %}<img src="{{ object.question_img.url }}" width="400px">{% endif %}
 
 <h2>{{ object.question }}</h2>
 <ul>

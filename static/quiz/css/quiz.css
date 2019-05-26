@@ -1,85 +1,219 @@
-.inline{
-  display:inline-block;
+/* MAIN */
+.time-div{
+  grid-area: time-div;
+}
+.question-div{
+  grid-area: question-div;
+}
+.img-div{
+  grid-area: img-div;
+}
+.answers-div{
+  grid-area: answers-div;
+}
+.selected{
+  background-color: rgb(0,0,0);
+}
+.answer{
+  position: relative;
+  border: 1px solid black;
+  width: 70%;
+  height:3em;
+  margin: auto auto;
+  vertical-align: middle;
+  padding: 0.5em;
+  transition-duration:.5s;
 }
 .selected{
   background-color:black;
   color:white;
 }
-
-.quiz-div{
-  position: absolute;
-  width: 55em;
-  height: 32em;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
+.my-container > div {
+  position: relative;
 }
+
 
 /* -------------- Timer line ---------------- */
-.row-70{
+
+.time-div{
   position: relative;
-  width: 70%;
   margin-left: auto;
   margin-right: auto;
-}
-
-.full-row{ width: 100%;}
+  margin-top:5vmin;
+  width: 70%;
+  height: .15em;}
 .time-line{ height: .15em; transition-duration: .5s;}
-.time-div{ height: .15em;}
 .time-left {
+  position: absolute;
   background-color:rgb(150, 150, 150);
   float: left;
+  width: 100%;
 }
 .time-passed {
+  position: absolute;
   background-color:rgb(230, 230, 230);
   float: right;
+  width: 0%;
 }
 
 /* -------------- Question ---------------- */
+.question-div{
+  position: relative;
+  margin: auto;
+  vertical-align: middle;
+}
 .question{
   margin-top: 1em;
   text-align: center;
 }
 /* -------------- Image ---------------- */
 
-#img.img{
-  max-width: 150px;
-  max-height: 150px;
+#img img{
+  vertical-align: middle;
+  border-style: none;
+  max-width: 1fr;
+  position: absolute;
   left: 50%;
-  tranform: translate(-50%);
+  top: 50%;
+  transform: translate(-50%, -50%);
 }
-img{
-  max-width: 400px;
-  max-height: 400px;
-  display: block;
-  margin-left: auto;
-  margin-right: auto;
-  width: 50%;
-}
+
 
 /* -------------- answers ---------------- */
-.answers-div{
-  position: absolute;
-  bottom: 0px;
-  height: 7em;
+
+
+@media only screen and (min-width: 1201px) {
+  .my-container{
+    padding: 0em 4em 4em 4em;
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows:  6vmin 6vmin 14vmin 42vmin 20vmin 11vmin;
+    grid-template-areas:
+    "my-nav"
+    "time-div"
+    "question-div"
+    "img-div"
+    "answers-div"
+    "."
+   }
+   .answers-div{
+     grid-area: answers-div;
+     display: grid;
+     grid-template-columns: 1fr 1fr;
+     grid-template-rows: 1fr 1fr;
+     text-align: center;
+   }
+   #img img{
+     max-height: 38vmin;
+   }
+   .answer:hover{
+     background-color: rgb(0,0,0);
+   }
+
+   .answer:hover{
+     color: white;
+   }
+
+   .answer:active{
+     background-color: rgba(0, 0, 0, 0);
+   }
+
 }
 
-table{
-  bottom: 0px;
-  height: 7em;
-  border-collapse: separate;
-  border-spacing: 15px;
+
+@media only screen and (min-width: 923px) and (max-width: 1200px) {
+  .my-container{
+    padding: 0em 4em 4em 4em;
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows:  6vmax 8vmax 10vmax 37vmax 28vmax 11vmax;
+    grid-template-areas:
+    "my-nav"
+    "time-div"
+    "question-div"
+    "img-div"
+    "answers-div"
+    "."
+   }
+   .answers-div{
+     grid-area: answers-div;
+     display: grid;
+     grid-template-columns: 1fr ;
+     grid-template-rows: 1fr 1fr 1fr 1fr;
+     text-align: center;
+   }
+   #img img{
+     max-height: 33vmax;
+   }
 }
 
-tr, td{
-  border: 1px solid rgb(200,200,200);
-  text-align:center;
-  width: 50%;
-  transition-duration: .5s;
+
+@media only screen and (min-width: 768px) and (max-width: 922px) {
+  .my-container{
+    padding: 0em 4em 4em 4em;
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows:  6vmax 8vmax 10vmax 37vmax 28vmax 11vmax;
+    grid-template-areas:
+    "my-nav"
+    "time-div"
+    "question-div"
+    "img-div"
+    "answers-div"
+    "."
+   }
+   .answers-div{
+     grid-area: answers-div;
+     display: grid;
+     grid-template-columns: 1fr ;
+     grid-template-rows: 1fr 1fr 1fr 1fr;
+     text-align: center;
+   }
+   #img img{
+     max-height: 33vmax;
+   }
 }
 
- td:hover{
-  border: 1px solid rgb(200,200,200);
-  color: white;
-  background-color: rgb(230,230,230)
+
+@media only screen and (max-width: 767px) {
+  .my-container{
+    padding: 0em 1em 1em 1em;
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows:  6vmax 8vmax 10vmax 37vmax 28vmax 11vmax;
+    grid-template-areas:
+    "my-nav"
+    "time-div"
+    "question-div"
+    "img-div"
+    "answers-div"
+    "."
+   }
+   .answers-div{
+     grid-area: answers-div;
+     display: grid;
+     grid-template-columns: 1fr ;
+     grid-template-rows: 1fr 1fr 1fr 1fr;
+     text-align: center;
+   }
+   .answer{
+     width: 100%;
+   }
+   #img img{
+     max-height: 33vmax;
+     max-width: 95%;
+}
+
+
+/* Lock orientation to portrait for phones */
+@media screen and (max-width: 1200px) and (orientation: landscape) {
+  html {
+    transform: rotate(-90deg);
+    transform-origin: left top;
+    width: 100vh;
+    overflow-x: hidden;
+    position: absolute;
+    top: 100%;
+    left: 0;
+  }
 }

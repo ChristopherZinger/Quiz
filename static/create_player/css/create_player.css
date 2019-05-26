@@ -1,33 +1,174 @@
+
+  /* MAIN */
+  .input-div{
+    grid-area: input-div;
+  }
+
 label{
   display: none;
 }
 
 
-.input-div{
-  position: absolute;
 
-  width: 30em;
-  height: 10em;
-  top:48%;
-  left: 50%;
-  transform: translate(-50%, -50%);
+
+@media only screen and (min-width: 1201px) {
+  /* MAIN */
+  .my-container{
+    padding: 0em 4em 4em 4em;
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows:  10vmin 80vmin;
+    grid-template-areas:
+    "my-nav"
+    "input-div";
+   }
+   .input-div{
+     width: 30em;
+     height: 10em;
+     margin: auto;
+   }
+
+   .name-input{
+     width: 100%;
+     border: 1px solid black;
+     padding: 5px;
+   }
+
+   .name-input:focus, .name-input:active{
+     outline: none !important;
+     border: 1px solid black;
+     box-shadow: 0 0 2px 2px rgb(230,230,230);
+   }
+
+   .input-start{
+     border:0px solid white;
+     background-color: rgba(0,0,0,0);
+     width: 35%;
+   }
 }
 
-.name-input{
-  width: 100%;
-  border: 1px solid rgb(200,200,200);
-  padding: 5px;
 
+@media only screen and (min-width: 923px) and (max-width: 1200px) {
+  .my-container{
+    padding: 0em 4em 4em 4em;
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows:  10vmax 90vmax;
+    grid-template-areas:
+    "my-nav"
+    "input-div";
+   }
+   .input-div{
+     width: 75%;
+     height: 10em;
+     margin-left: auto;
+     margin-right: auto;
+     margin-top: 45%;
+   }
+
+   .name-input{
+     width: 100%;
+     border: 1px solid rgb(200,200,200);
+     padding: 5px;
+   }
+
+   .name-input:focus, .name-input:active{
+     outline: none !important;
+     border: 1px solid rgb(150, 150, 150);
+     box-shadow: 0 0 0px 0px rgb(200, 200, 200);
+   }
+
+   .input-start{
+     border:0px solid white;
+     background-color: rgba(0,0,0,0);
+     width: 35%;
+   }
 }
 
-.name-input:focus, .name-input:active{
-  outline: none !important;
-  border: 1px solid rgb(150, 150, 150);
-  box-shadow: 0 0 0px 0px rgb(200, 200, 200);
+
+@media only screen and (min-width: 768px) and (max-width: 922px) {
+  .my-container{
+    padding: 0em 4em 4em 4em;
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows:  10vmax 90vmax;
+    grid-template-areas:
+    "my-nav"
+    "input-div";
+   }
+   .input-div{
+     width: 75%;
+     height: 10em;
+     margin: auto;
+   }
+
+   .name-input{
+     width: 100%;
+     border: 1px solid rgb(200,200,200);
+     padding: 5px;
+   }
+
+   .name-input:focus, .name-input:active{
+     outline: none !important;
+     border: 1px solid rgb(150, 150, 150);
+     box-shadow: 0 0 0px 0px rgb(200, 200, 200);
+   }
+
+   .input-start{
+     border:0px solid white;
+     background-color: rgba(0,0,0,0);
+     width: 35%;
+   }
 }
 
-.input-start{
-  border:0px solid white;
-  background-color: rgba(0,0,0,0);
-  width: 35%;
+
+@media only screen and (max-width: 767px) {
+  .my-container{
+    padding: 0em 1em 1em 1em;
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows:  10vmax 90vmax;
+    grid-template-areas:
+    "my-nav"
+    "input-div";
+   }
+   .input-div{
+     width: 80%;
+     height: 5em;
+     margin-left:  auto;
+     margin-right: auto;
+     margin-top: 40%;
+   }
+
+   .name-input{
+     width: 100%;
+     border: 1px solid rgb(200,200,200);
+     padding: 5px;
+   }
+
+   .name-input:focus, .name-input:active{
+     outline: none !important;
+     border: 1px solid rgb(150, 150, 150);
+     box-shadow: 0 0 0px 0px rgb(200, 200, 200);
+   }
+
+   .input-start{
+     border:0px solid white;
+     background-color: rgba(0,0,0,0);
+     width: 100%;
+   }
+}
+
+
+/* Lock orientation to portrait for phones */
+@media screen and (max-width: 1200px) and (orientation: landscape) {
+  html {
+    transform: rotate(-90deg);
+    transform-origin: left top;
+    width: 100vh;
+    overflow-x: hidden;
+    position: absolute;
+    top: 100%;
+    left: 0;
+  }
 }

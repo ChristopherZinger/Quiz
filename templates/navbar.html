@@ -1,5 +1,13 @@
 <!-- Navigation Bar -->
     <div class="my-nav">
-        <a class=" nav-link font font-medium font-size-s dark-gray" href="{% url 'quizgame:about' %}"> about</a>
-        <a class=" nav-link right font font-medium font-sie-m dark-gray" href="{% url 'quizgame:author' %}">author</a>
+
+        <a id="nav-logo" class="link-left nav-link font-p font-demi s black" href="{% url 'quizgame:index' %}">Quizzzz</a>
+
+        <a class="nav-link-full nav-link font-p right  black" href="{% url 'quizgame:about' %}"> about</a>
+        <a class="nav-link-full nav-link font-p right  black" href="{% url 'quizgame:author' %}">author</a>
+
+          <div id="dropdown-icon" class="link-right nav-link right black">
+            <i id="nav-button-dropdown" class="fas fa-user-circle" style="transform:scale(1.3);"></i>
+          </div>
+
     </div>

@@ -94,6 +94,7 @@ class QuizResultsView(TemplateView):
         shortcode = self.kwargs.get('player_shortcode')
 
         # player score
+        context['player_position'] = Player.objects.filter(time_points__gte=Player.objects.get(shortcode=shortcode).time_points).count()
         context['player_score'] = Player.objects.get(shortcode=shortcode).time_points
         context['correct_answer'] = Player.objects.get(shortcode=shortcode).points
         context['shortcode'] = shortcode

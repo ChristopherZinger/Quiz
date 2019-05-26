@@ -1,4 +1,5 @@
 from django.conf.urls import url, include
+from django.contrib.auth.decorators import login_required
 from .views import (
     AboutView,
     AuthorView,
@@ -21,11 +22,11 @@ app_name = 'quizgame'
 urlpatterns = [
 
     # Quiz Question Manager
-    url(r'^question/create/$',              QuestionCreateView.as_view(),   name='create'),
-    url(r'^question/(?P<pk>\d+)/delete/$',  QuestionDeleteView.as_view(),   name='delete'),
-    url(r'^question/(?P<pk>\d+)/$',         QuestionDetailView.as_view(),   name='detail'),
-    url(r'^question/list/$',                QuestionListView.as_view(),     name='list'),
-    url(r'^question/(?P<pk>\d+)/update/$',  QuestionUpdateView.as_view(),   name='update'),
+    url(r'^question/create/$',              login_required(QuestionCreateView.as_view()),   name='create'),
+    url(r'^question/(?P<pk>\d+)/delete/$',  login_required(QuestionDeleteView.as_view()),   name='delete'),
+    url(r'^question/(?P<pk>\d+)/$',         login_required(QuestionDetailView.as_view()),   name='detail'),
+    url(r'^question/list/$',                login_required(QuestionListView.as_view()),     name='list'),
+    url(r'^question/(?P<pk>\d+)/update/$',  login_required(QuestionUpdateView.as_view()),   name='update'),
 
     # Quiz Game URLS
     url(r'^index/$', QuizIndexView.as_view(), name='index'),

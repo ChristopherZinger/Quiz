@@ -1,4 +1,4 @@
-{% extends 'base.html' %}
+{% extends 'base-admin.html' %}
 
 {% block title %} Create Question{% endblock %}
 
@@ -11,11 +11,6 @@
 
 <h2> Create new question</h2>
 <p>Remember that the first anwser is a correct one!</p>
-
-
-
-
-
 <form method="Post" enctype='multipart/form-data'>
   {% csrf_token %}
   {{ form.as_p }}
@@ -26,10 +21,12 @@
   var answer
 
   $(document).ready(function() {
+    var currentURL = window.location.href
+    var generateQuiestionURL = currentURL.split("question")[0] + "api/generate_correct_answer/"
 
     $.ajax({
       type:'GET',
-      url: `http://127.0.0.1:8000/quizgame/api/generate_correct_answer/`,
+      url: generateQuiestionURL,
       success: (data) => {
         answer = data
         // $.each(list, function(index, el) {
@@ -37,7 +34,6 @@
         // });
       }
     }).done(function(){
-
       mystr1 = "input[name='answer_" + answer.correct_answer +  "']"
       mystr2 = "option[value='" + answer.correct_answer +  "']"
       mystr3 = "select[name='correct_answer']"
@@ -47,9 +43,6 @@
       $( mystr2).attr('selected', 'selected')
       $( mystr2).trigger('chosen:updated');
       })
-
   });
-
 </script>
-
 {% endblock %}

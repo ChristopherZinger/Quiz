@@ -6,29 +6,34 @@
 
 {% block head %}
   {% load staticfiles %}
+  <link rel="stylesheet" href="{% static 'main/css/main.css' %}">
   <link rel="stylesheet" href="{% static 'create_player/css/create_player.css' %}">
 {% endblock %}
 
 {% block body %}
-{% include "navbar.html" %}
 
-<div class=" input-div">
-  <h2 class="font font-size-s font-medium dark-gray"> Player Name</h2>
+{% include "navbar-dropdown.html" %}
+<div class="my-container">
+  {% include "navbar.html" %}
+  <div class=" input-div">
+    <h2 class="font-headline font-demi font-size-m black">Player Name</h2>
 
-  <form  method="POST">
-    {% csrf_token %}
-    {{ form.as_p }}
+    <form  method="POST">
+      {% csrf_token %}
+      {{ form.as_p }}
 
 
-      <button class="start-div input-start" type="submit" >
-          <div class="start-line start-line-front"></div>
-            <div class="start-btn font font-medium font-size-sm dark-gray ">start</div>
-          <div class="start-line start-line-back"></div>
-      </button>
+        <button class="start-div input-start" type="submit" >
+            <div class="start-line start-line-front"></div>
+              <p class="start-btn font-headline font-demi black">Start</p>
+            <div class="start-line start-line-back"></div>
+        </button>
 
-  </form>
+    </form>
 
+  </div>
 </div>
+
 
 
 {% endblock %}

@@ -5,46 +5,37 @@
 {% block head %}
   {% load staticfiles %}
   <link rel="stylesheet" href="{% static 'quiz/css/quiz.css' %}">
+
 {% endblock %}
 
 
 
 {% block body %}
-  {% include "navbar-quiz.html" %}
+  <div class="my-container">
+    {% include "navbar-quiz.html" %}
 
-
-  <div class="quiz-div">
     <!-- Time bar -->
-    <div class="row-70 time-div">
-      <div id='time-left' class="time-line time-left left" style="width:100%;"></div>
-      <div id='time-passed' class="time-line time-passed ring" style="width:0%;"></div>
-
+    <div class="time-div">
+      <div id='time-left' class="time-line time-left left"> </div>
+      <div id='time-passed' class="time-line time-passed right" ></div>
     </div>
+
     <!-- question section -->
-    <div class=" full-row question-div">
-      <h4 id='q-question' class="font font-size-m font-regular question dark-gray" ></h4>
+    <div class="question-div">
+      <h4 id='q-question' class="font-p font-size-m font-regular question black" ></h4>
     </div>
+
     <!-- image section -->
-    <div class="full-row img-div">
-      <div id="img">
-
-
-      </div>
+    <div id="img" class="img-div">
     </div>
+
     <!-- answers section -->
-    <div class="full-row answers-div">
-      <table class="font font-size-s font-regular dark-gray full-row">
-        <tr>
-          <td id="A" class="answer"></td>
-          <td id="B" class="answer"></td>
-        </tr>
-        <tr>
-          <td id="C" class="answer"></td>
-          <td id="D" class="answer"></td>
-        </tr>
-      </table>
+    <div class="answers-div">
+          <div id="A" class="answer font-p black"></div>
+          <div id="B" class="answer font-p black"></div>
+          <div id="C" class="answer font-p black"></div>
+          <div id="D" class="answer font-p black"></div>
     </div>
-
   </div>
 
 
@@ -83,8 +74,9 @@
 
 
   // go to results page
-  function results(){
-      url = "http://127.0.0.1:8000/quizgame/results/" + player_code
+  function results(url){
+      var generateQuiestionURL = url.split("quizgame")[0] + "quizgame/results/"
+      url = generateQuiestionURL + player_code
       $(location).attr('href', url);
   }
 
@@ -94,7 +86,7 @@
     $('#clock').html(`${time}`)
     clock = setInterval(function(){
       if (time > 0){
-        time -= 1
+        time -= 1 ;
 
         x = Math.round(time * 100 / 30)
         y = 100 - x
@@ -108,7 +100,7 @@
         // check if this was last question and results should be generated
         if($("#resultsButton").length){
             submit_answer();
-            results();
+            results(url);
         }else{
           submit_answer()
           // get_question();
@@ -123,7 +115,7 @@
     clearInterval(clock)
 
     // post answer - url
-    question_post_url = 'http://127.0.0.1:8000/quizgame/api/' + player_code + '/questions/'
+    question_post_url = url.split("quizgame")[0] + "quizgame/api/" + player_code + '/questions/'
 
     // post answer - prepare data
     // check the answer and handle if nothing is selected
@@ -151,7 +143,7 @@
 
   function get_question(){
     // get nex quesion id - url
-    var player_URL = 'http://127.0.0.1:8000/quizgame/api/' + player_code + '/questions/'
+    var player_URL = url.split("quizgame")[0] + "quizgame/api/" + player_code + '/questions/'
 
     // get nex quesion id  - ajax get
       $.ajax({
@@ -160,13 +152,11 @@
         success: (data) => {
           //question_id = data.current_question_obj
           if( data.status ){
-            results();
+            results(url);
           }else{
             current_question_obj = data
             question_id = data.id
           }
-
-
         }
       }).done(()=>{
           // check if question have a img and display it
@@ -201,7 +191,6 @@ $(document).ready(function() {
       return false; // break from loop
     }
   });
-
   get_question()
 
   // handle user selecting the answer
@@ -209,9 +198,12 @@ $(document).ready(function() {
   remove_selection()
   $(this).toggleClass('selected')
   submit_answer()
+
+  // reset the clock
+  $("#time-left").css('width','100%');
+  $("#time-passed").css('width','0%');
+
   });
-
-
 });
 
 

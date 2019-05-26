@@ -7,38 +7,55 @@
 {% block head %}
   {% load staticfiles %}
   <link rel="stylesheet" href="{% static 'index/css/index.css' %}" type="text/css">
-  <link href="https://fonts.googleapis.com/css?family=Montserrat:400,500,600,700,800,900" rel="stylesheet">
+  <!-- <link href="https://fonts.googleapis.com/css?family=Montserrat:400,500,600,700,800,900" rel="stylesheet"> -->
 {% endblock %}
 
 {% block body %}
-{% include "navbar.html" %}
 
-  <h1 id="impact" class="font font-demi dark-gray font-size-xl">Quizzzz.</h1>
+{% include "navbar-dropdown.html" %}
+<div class="my-container unselectable">
+  {% include "navbar.html" %}
+  <!-- QUIZZZZ -->
+  <div class="impact-container">
+    <h1 id="impact" class="font-headline font-demi black font-size-xl">Quizzzz.</h1>
+  </div>
 
-<!-- Start button -->
-<a href="{% url 'quizgame:create_player' %}">
-  <div class="start-div">
-      <div class="start-line start-line-front"></div>
-        <p class="start-btn font font-medium font-size-m dark-gray">start</p>
-      <div class="start-line start-line-back"></div>
+  <!-- IMAGE container -->
+  <div class="img-container">
+    <img id='img' src="" alt="">
   </div>
-</a>
 
-<!-- Information under quizzzz -->
-<!-- section markers -->
-<div class="info-div">
-  <div id="info-lines">
-      <div class="info-line active" style="background-color: rgb(150,150,150);"></div>
-      <div class="info-line"></div>
-      <div class="info-line"></div>
-      <div class="info-line"></div>
-      <div class="info-line"></div>
+  <!-- Information under quizzzz -->
+  <!-- section markers -->
+  <div class="info-div">
+    <div class="info-container">
+      <div id="info-lines">
+          <div class="info-line active" style="background-color: black;"></div>
+          <div class="info-line"></div>
+          <div class="info-line"></div>
+          <div class="info-line"></div>
+          <div class="info-line"></div>
+      </div>
+    <!-- info text -->
+      <div class="info-text font-p font-regular font-size-s black">
+        <p id="headline" class="">Check your knowlede about acient and modern architecture.</p>
+      </div>
+    </div>
   </div>
-<!-- info text -->
-  <div class="info-text font font-regular font-size-s dark-gray">
-    <p id="headline" class="">Check your knowlede about acient and modern architecture.</p>
+    <!-- Start button -->
+  <div class="start-button">
+    <a href="{% url 'quizgame:create_player' %}">
+      <div class="start-div">
+          <div class="start-line start-line-front"></div>
+            <p class="start-btn font-headline font-demi black">Start</p>
+          <div class="start-line start-line-back"></div>
+      </div>
+    </a>
   </div>
+
+
 </div>
+
 
 
 <script type="text/javascript">
@@ -55,25 +72,31 @@
   var current_headline_index = 0;
   var timer
 
-// fade in background
-  function background(){
+  // image animation variales
+  var img1 = '/media/png/mies_farm_house.png'
+  var img2 = '/media/png/partenon.png'
+  var img3 = '/media/png/rotonda.png'
+  var i_img = 0
+  var imgs = [img1, img2, img3]
 
-    $(document.body).css('background-image','url("/static/png/mies_van_der_rohe_2.png")' )
-    $(document.body).css('background-position', 'right top');
-  }
+
+
+
+
+
 
   // change colors of little lines
   function lines_color(){
     $.each($('#info-lines').find("div"), function(){
       if ($(this).hasClass('active')){
-        $(this).css("background-color","rgb(200,200,200)");
+        $(this).css("background-color","rgb(230,230,230)");
         $(this).removeClass('active');
         if ($(this).next().length) {
           $(this).next().addClass('active');
-          $(this).next().css("background-color","rgb(150,150,150)");
+          $(this).next().css("background-color","black");
         }else{
           $('#info-lines').children().first().addClass('active');
-          $('#info-lines').children().first().css("background-color","rgb(150,150,150)");
+          $('#info-lines').children().first().css("background-color","black");
         }
         return false;
       }
@@ -101,12 +124,11 @@
             i_interval = 0;
             my_headline = ''
           }
-          // stop the clock for a white before displaying next headline
-
-
+          // stop the clock for a while before displaying next headline
           setTimeout(() => {
             headlines_animation()
             lines_color()
+            imgchange()
           },3000)
           clearInterval(timer)
         }
@@ -115,31 +137,17 @@
 
 
 function imgchange(){
-
-  img1 = '/media/img_svg/mies_van_der_roche.svg'
-  img2 = '/media/img_svg/parthenon.svg'
-  img3 = '/media/img_svg/villa_rotonda.svg'
-
-  imgs = [img1, img2, img3]
-
-  var i_img = 0,
-  timer_img = setInterval(() =>{
-    $("#jumbo-img").fadeOut('1000', ()=>{
-      $("#jumbo-img").attr("src",imgs[i_img]);
+    $("#img").fadeOut('1000', ()=>{
+      $("#img").attr("src",imgs[i_img]);
     });
-
-
-    $("#jumbo-img").fadeIn('1000');
+    $("#img").fadeIn('1000');
     i_img++;
     if( i_img > 2){i_img = 0}
-  }, 2500)
-
-
-
 }
 
   $(document).ready(function() {
-      background()
+
+      $("#img").attr("src",imgs[0]); // set first image after page load
       headlines_animation()
       imgchange()
   }) ;

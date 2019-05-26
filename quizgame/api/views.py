@@ -108,7 +108,6 @@ class GenerateCorrectAnswerAPIDetailView(APIView):
         return Response(serializer.data)
 
 
-
 class PlayerAPIDetailView(APIView):
     def get(self, request, format=None, *args, **kwargs):
         # Get object

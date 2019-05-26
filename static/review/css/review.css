@@ -1,31 +1,221 @@
+/* MAIN */
 
-
+.question-div{
+  grid-area: question-div;
+}
+.img-div{
+  grid-area: img-div;
+}
+.answers-div{
+  grid-area: answers-div;
+}
 .review{
-  position: absolute;
-  top: 50%;
-  left: 20%;
-
-  transform: translateY(-50%);
-  display: none;
-  width: 60%;
-  background-color: rgb(245,245,245);
-  border-radius: 20px;
-  padding: 20px;
-
+  grid-area: review;
+}
+.review-container{
+  grid-area: review-container;
 }
 
+.review{
+  grid-area: review;
+}
+
+.active{
+  display:block;
+}
+.review{
+  display: none;
+  width: 100%;
+  height: 100%;
+}
+/* -------------- question ---------------- */
+.question-div{
+  position: relative;
+  margin: auto;
+  vertical-align: middle;
+}
+
+/* -------------- answer ---------------- */
+.answer{
+  position: relative;
+  border: 1px solid black;
+  width: 70%;
+  height:3em;
+  margin: 10px auto;
+  vertical-align: middle;
+  padding: 0.5em;
+  transition-duration:.5s;
+}
+.answer > p {
+  margin:0px;
+  padding: 0px;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+}
+.answer:active{
+  background-color: rgba(0, 0, 0, 0);
+}
+
+/* -------------- next btn ---------------- */
 #next-btn{
-    float: right;
-    border: none; 
-    background-color: white;
-    padding: 5px 25px 5px 25px;
     background-color: rgb(200,200,200);
+    border: 1px solid black;
+    background-color: white;
+    color: black;
+    margin: auto;
+    /* margin: 20px; */
+    padding: 5px 25px 5px 25px;
     transition-duration: .5s;
-    margin-right: 15px;
-    color: rgb(240,240,240);
+    width: 10em;
 }
 
 #next-btn:hover{
-    background-color: rgb(150,150,150);
+    background-color: black;
+    color: white;
+}
 
+/* -------------- Image ---------------- */
+
+#img{
+  position: relative;
+}
+
+#img img{
+  border-style: none;
+  max-width: 1fr;
+  position: absolute;
+  left: 50%;
+  top:50%;
+  transform: translate(-50%, -50%);
+}
+
+@media only screen and (min-width: 1200px)  {
+  /* MAIN CONCTAINER */
+  .my-container{
+    padding: 0em 4em 4em 4em;
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows:  6vmin 80vmin;
+    grid-template-areas:
+    "my-nav"
+    "review";
+
+   }
+   .review-container{
+     display: grid;
+     grid-template-columns: 1fr;
+     grid-template-rows: 10vmin 40vmin 30vmin;
+     grid-template-areas:
+     "question-div"
+     "img-div"
+     "answers-div";
+   }
+   .review:first-child{
+     display: grid;
+   }
+   #img img{
+     max-height: 35vmin;
+   }
+}
+
+
+@media only screen and (min-width: 922px) and (max-width: 1200px) {
+  /* MAIN CONCTAINER */
+  .my-container{
+    padding: 0em 4em 4em 4em;
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows:  6vmax 80vmax;
+    grid-template-areas:
+    "my-nav"
+    "review";
+
+   }
+   .review-container{
+     display: grid;
+     grid-template-columns: 1fr;
+     grid-template-rows: 10vmax 40vmax 30vmax;
+     grid-template-areas:
+     "question-div"
+     "img-div"
+     "answers-div";
+   }
+   .review:first-child{
+     display: grid;
+   }
+   #img img{
+     max-height: 35vmax;
+   }
+}
+
+@media only screen and (min-width: 768px) and (max-width: 921px) {
+  /* MAIN CONCTAINER */
+  .my-container{
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows:  6vmax 80vmax;
+    grid-template-areas:
+    "my-nav"
+    "review";
+
+   }
+   .review-container{
+     display: grid;
+     grid-template-columns: 1fr;
+     grid-template-rows: 10vmax 40vmax 30vmax;
+     grid-template-areas:
+     "question-div"
+     "img-div"
+     "answers-div";
+   }
+   .review:first-child{
+     display: grid;
+   }
+   #img img{
+     max-height: 35vmax;
+   }
+}
+
+@media only screen and (max-width: 767px) {
+  /* MAIN CONCTAINER */
+  .my-container{
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows:  12vmax 88vmax;
+    grid-template-areas:
+    "my-nav"
+    "review";
+
+   }
+   .review-container{
+     display: grid;
+     grid-template-columns: 1fr;
+     grid-template-rows: 10vmax 40vmax 30vmax;
+     grid-template-areas:
+     "question-div"
+     "img-div"
+     "answers-div";
+   }
+   .review:first-child{
+     display: grid;
+   }
+   #img img{
+     max-height: 35vmax;
+     max-width: 94%;
+   }
+   .answer{
+     width: 100%;
+     height: 20%;
+     margin: 5px auto;
+     padding: 0px;
+   }
+   .font-size-s{
+     font-size: 10pt;
+   }
+   #q-question{
+     font-size: 12pt;
+   }
 }
