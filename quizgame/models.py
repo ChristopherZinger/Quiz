@@ -56,7 +56,8 @@ class Player(models.Model):
     shortcode               = models.CharField(max_length=15, unique=True)
     questions               = models.ManyToManyField(Question, related_name='question_set')
     current_question_nr     = models.IntegerField(default=0)
-    current_question_obj    = models.ForeignKey(Question, related_name='current_question', blank=True, null=True, default=None)
+    current_question_obj    = models.ForeignKey(Question, related_name='current_question', 
+        blank=True, null=True, default=None, on_delete=models.SET_NULL)
     time_points             = models.IntegerField(default=0)
     points                  = models.IntegerField(default=0) # this should be named correct_answers
     nr_of_questions         = models.IntegerField(default=10)
@@ -100,7 +101,6 @@ class Player(models.Model):
             id = self.questions.all()[self.current_question_nr].id
             self.current_question_obj = self.questions.get(id=id)
             # update current question number
-            print('Question ID : {}, \n Question number : {}'.format(self.current_question_obj.id, self.current_question_nr))
             self.current_question_nr += 1
         self.save()
 
@@ -108,4 +108,4 @@ class Player(models.Model):
         self.points +=1
         self.time_points += time_points
         self.save()
-        print('points in model : {}'.format(self.points))
+
