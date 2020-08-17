@@ -3,7 +3,7 @@
 
 {% block head %}
 {% load staticfiles %}
-  <link rel="stylesheet" href="{% static 'about/css/about.css' %}">
+<link rel="stylesheet" href="{% static 'about/css/about.css' %}">
 {% endblock %}
 
 
@@ -13,7 +13,7 @@
 
   <!-- headline -->
   <div class="headline">
-    <h1  class="font-headline black font-size-xl">About </h1>
+    <h1 class="font-headline black font-size-xl">About </h1>
   </div>
 
 
@@ -21,26 +21,33 @@
   <!-- buttons -->
   <div id="button-section" class="buttons">
     <!-- again button -->
-    <a  href="{% url 'quizgame:create_player' %}">
+    <a href="{% url 'quizgame:create_player' %}">
       <div class="start-div button">
-          <div class="start-line start-line-front"></div>
-            <p class="start-btn font-headline font-size-m black">Play</p>
-          <div class="start-line start-line-back"></div>
+        <div class="start-line start-line-front"></div>
+        <p class="start-btn font-headline font-size-m black">Play</p>
+        <div class="start-line start-line-back"></div>
       </div>
     </a>
     <!-- share button -->
-    <a  href="">
+    <a href="">
       <div class="start-div button">
-          <div class="start-line start-line-front"></div>
-            <p class="start-btn font-headline  font-size-m black">Share</p>
-          <div class="start-line start-line-back"></div>
+        <div class="start-line start-line-front"></div>
+        <p class="start-btn font-headline  font-size-m black">Share</p>
+        <div class="start-line start-line-back"></div>
       </div>
     </a>
   </div>
 
   <!-- description -->
   <div class="description">
-      <p class="font-p font-size-s font-regular black" > The quiz is created because i got to much free time and I dont like people. The quiz is created because i got to much free time and I dont like people. The quiz is created because i got to much free time and I dont like people. The quiz is created because i got to much free time and I dont like people. The quiz is created because i got to much free time and I dont like people. The quiz is created because i got to much free time and I dont like people. The quiz is created because i got to much free time and I dont like people.</p>
+    <p class="font-p font-size-s font-regular black">
+      Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's
+      standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a
+      type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting,
+      remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing
+      Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions
+      of Lorem Ipsum.
+    </p>
   </div>
 </div>
 
